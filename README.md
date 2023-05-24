@@ -63,6 +63,11 @@ The script will display a list of VMs that will be created based on the entered 
 
 * The script will then create the VMs based on the provided information.
 
+## gitclones-user.sh
+### Use
+```bash
+./gitclones-user.sh USERNAMEHERE
+```
 ### Contributing
 
 Contributions to this script are welcome. Feel free to open a pull request with any suggested changes or additions.
