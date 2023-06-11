@@ -25,6 +25,18 @@ void* establishConnections(void* arg) {
 
     struct sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(connInfo->serverPort);
+    if (inet_pton(AF_INET, connInfo->serverIP, &(serverAddr.sin_addr)) <= 0) {
+        perror("Invalid address/Address not supported");
+        pthread_exit(NULL);
+    }
+
+    if (connect(socketFd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+        perror("Connection failed");
+        pthread_exit(NULL);
+    }
+
+    printf("Connection established successfully!\n");
 
 
 }
