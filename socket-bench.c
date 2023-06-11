@@ -4,21 +4,27 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <pthread.h>
 
 
 #define MAX_CONNECTIONS 1000
 
-void establishConnections(const char* serverIP, int serverPort, int numConnecitons) {
-    int sockets[MAX_CONNECTIONS];
-    struct sockaddr_in serverAddr;
+struct ConnectionInfo {
+    const char* serverIP;
+    int serverPort;
+};
 
+void* establishConnections(void* arg) {
+    struct ConnectionInfo* connInfo = (struct ConnectionInfo*)arg;
 
-    // Creating the socket
-    for (int i = 0; i < numConnections; i++) {
-        sockets[i] = socket(AF_INET, SOCK_STREAM, 0);
-        if (sockets[i] < 0) {
-            perror("Socket creation failed");
-            exit(EXIT_FAILURE);
-        }
+    int socketFd = socket(AF_INET, SOCK_STREAM, 0);
+    if (socketFd < 0) {
+        perror("Socket creation failed");
+        pthread_exit(NULL);
     }
+
+    struct sockaddr_in serverAddr;
+    serverAddr.sin_family = AF_INET;
+
+
 }
