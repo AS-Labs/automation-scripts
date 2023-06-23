@@ -31,5 +31,5 @@ if __name__ == '__main__':
 
     # Print the formatted connections
     for connection in server_connections:
-        print(connection)
+        print(f"{connection[0]},{connection[1]},{connection[2]}")
 
