@@ -1,5 +1,6 @@
 import psutil
 
+
 def get_connections():
     """
     Get all servers with established connections to the current server.
