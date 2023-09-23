@@ -1,6 +1,5 @@
 import psutil
 
-
 def get_connections():
     """
     Get all servers with established connections to the current server.
@@ -10,18 +9,19 @@ def get_connections():
     connection_count = {}
     for conn in psutil.net_connections():
         if conn.status == 'ESTABLISHED' and conn.raddr:
-            source, port = conn.laddr
-            target, _ = conn.raddr
+            source, source_port = conn.laddr
+            target, target_port = conn.raddr
 
             if source == current_server:
-                if target in connection_count:
-                    connection_count[target] += 1
+                key = (target, target_port)
+                if key in connection_count:
+                    connection_count[key] += 1
                 else:
-                    connection_count[target] = 1
+                    connection_count[key] = 1
 
     formatted_connections = []
-    for target, count in connection_count.items():
-        formatted_connections.append([current_server, target, count])
+    for (target, target_port), count in connection_count.items():
+        formatted_connections.append([current_server, target, target_port, count])
 
     return formatted_connections
 
@@ -31,5 +31,5 @@ if __name__ == '__main__':
 
     # Print the formatted connections
     for connection in server_connections:
-        print(f"{connection[0]},{connection[1]},{connection[2]}")
+        print(f"{connection[0]},{connection[1]},{connection[2]},{connection[3]}")
 
