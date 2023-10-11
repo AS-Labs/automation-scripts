@@ -30,4 +30,29 @@ int main(int argc, char *argv[]) {
     }
 
     struct sockaddr_in server_addr;
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(port);
+    inet_pton(AF_INET, server_ip, &(server_addr.sin_addr));
+
+    struct timeval start_time, end_time;
+
+    gettimeofday(&start_time, NULL);
+
+    if (connect(sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
+        perror("connect");
+        close(sock);
+        return 1;
+    }
+
+    gettimeofday(&end_time, NULL);
+
+    close(sock);
+
+    long start_ms = start_time.tv_sec * 1000 + start_time.tv_usec / 1000;
+    long end_ms = end_time.tv_sec * 1000 + end_time.tv_usec / 1000;
+    long response_time = end_ms - start_ms;
+
+    printf("Target %s Port %d in %ld ms\n", server_ip, port, response_time);
+
+    return 0;
 }
