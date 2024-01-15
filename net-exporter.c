@@ -38,6 +38,9 @@ int main() {
     }
 
     int sock = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
+    if (sock > 0) {
+      printf("Socket Created");
+    }
     if (sock < 0) {
         perror("Socket creation error");
         return 1;
