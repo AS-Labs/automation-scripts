@@ -1,5 +1,5 @@
 #!/bin/bash
-rm -f /tmp/procs_swap.out
+rm -f /tmp/procs_swap.out /tmp/procs_swap_cmdlines.out
 
 for process in /proc/*/status
 do
