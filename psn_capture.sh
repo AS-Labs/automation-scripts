@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo ./psn -d 5 > ./psn.out
-sudo chown as-labs:as-labs ./psn.out
+sudo chown $(id -u):$(id -g) ./psn.out
 echo "time,hostname,samples,avg_threads,comm,state" > ./psn_report.csv
 cat ./psn.out|grep -Ev "^samples|expected|total|^runtime|Active Threads|^finished|^Sampling|^Linux Process|^---"\
 	|sed 's/|/,/g'\
